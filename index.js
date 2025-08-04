@@ -1,7 +1,10 @@
 const puppeteer = require('puppeteer');
 
 (async () => {
-  const browser = await puppeteer.launch({ headless: false });
+  const browser = await puppeteer.launch({
+  headless: true,
+  args: ['--no-sandbox', '--disable-setuid-sandbox'],
+})
   const context = await browser.createBrowserContext();
   const page = await context.newPage();
 
@@ -30,4 +33,5 @@ const puppeteer = require('puppeteer');
 
   await new Promise(resolve => setTimeout(resolve, 2000));
   await browser.close();
+   console.log('✅ Bot finalizado OK:', new Date().toISOString());
 })();
