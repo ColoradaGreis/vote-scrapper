@@ -38,7 +38,7 @@ async function runBotLoop() {
   } catch (err) {
     console.error('❌ Error en bot:', err);
   }
-  const nextDelay = Math.floor(Math.random() * 2000); // 0-20000 ms
+  const nextDelay = Math.floor(Math.random() * 20000); // 0-20000 ms
   console.log(`Próxima ejecución en ${nextDelay / 1000} segundos`);
   setTimeout(runBotLoop, nextDelay);
 }
