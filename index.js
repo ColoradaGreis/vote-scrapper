@@ -31,11 +31,17 @@ async function runBot() {
   await browser.close();
 }
 
-// Ejecuta el bot cada hora en el minuto 5 (puedes cambiar el cron como quieras)
-cron.schedule('*/10 * * * * *', () => {
-  console.log('Ejecutando bot a las', new Date().toLocaleString());
-  runBot();
-});
+// Función para loop con intervalo variable (0 a 20 seg)
+async function runBotLoop() {
+  try {
+    await runBot();
+  } catch (err) {
+    console.error('❌ Error en bot:', err);
+  }
+  const nextDelay = Math.floor(Math.random() * 2000); // 0-20000 ms
+  console.log(`Próxima ejecución en ${nextDelay / 1000} segundos`);
+  setTimeout(runBotLoop, nextDelay);
+}
 
-// (Opcional) Ejecuta una vez al iniciar para testeo
-runBot();
+// Iniciar loop
+runBotLoop();
